@@ -7,6 +7,7 @@ export const itemTypeDefs = gql`
     label: String
     description: String
     price: Float
+    sections: [Section]
   }
 
   type Query {
