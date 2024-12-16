@@ -1,14 +1,76 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+model Menu {
+  id         Int           @id @default(autoincrement())
+  identifier String        @unique
+  label      String
+  start_date DateTime
+  end_date   DateTime
+  sections   MenuSection[]
+}
+
+model Section {
+  id         Int           @id @default(autoincrement())
+  identifier String        @unique
+  label      String
+  items      SectionItem[]
+  menus      MenuSection[]
+}
+
+model SectionItem {
+  id        Int @id @default(autoincrement())
+  sectionId Int
+  itemId    Int
+
+  section Section @relation(fields: [sectionId], references: [id])
+  item    Item    @relation(fields: [itemId], references: [id])
+}
+
+model MenuSection {
+  id        Int @id @default(autoincrement())
+  menuId    Int
+  sectionId Int
+
+  menu    Menu    @relation(fields: [menuId], references: [id])
+  section Section @relation(fields: [sectionId], references: [id])
+}
+
+model Item {
+  id          Int           @id @default(autoincrement())
+  identifier  String        @unique
+  label       String
+  description String?
+  price       Float
+  type        String
+  modifiers   Modifier[]
+  sections    SectionItem[]
+}
+
+model ModifierGroup {
+  id                     Int        @id @default(autoincrement())
+  identifier             String     @unique
+  label                  String
+  selection_required_min Int
+  selection_required_max Int
+  modifiers              Modifier[]
+}
+
+model Modifier {
+  id               Int    @id @default(autoincrement())
+  name             String
+  default_quantity Int
+  price_override   Float
+  display_order    Int
+  itemId           Int
+  modifierGroupId  Int
+
+  item          Item          @relation(fields: [itemId], references: [id])
+  modifierGroup ModifierGroup @relation(fields: [modifierGroupId], references: [id])
 }
