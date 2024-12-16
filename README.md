@@ -2,6 +2,8 @@
 
 This project is a GraphQL API designed for managing restaurant-style menu systems. It allows for managing menus, sections, items, modifiers, and their relationships in a structured way.
 
+#### Completion time: 6h 57min
+
 ## Table of Contents
 
 - [Project Setup](#project-setup)
