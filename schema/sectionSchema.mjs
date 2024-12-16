@@ -2,7 +2,7 @@ import { gql } from "graphql-tag";
 
 export const sectionTypeDefs = gql`
   type Section {
-    identifier: ID!
+    id: ID!
     label: String
     menus: [Menu]
     items: [Item]

@@ -2,7 +2,7 @@ import { gql } from "graphql-tag";
 
 export const menuTypeDefs = gql`
   type Menu {
-    identifier: ID!
+    id: ID!
     label: String
     state: String
     start_date: String
@@ -11,7 +11,7 @@ export const menuTypeDefs = gql`
   }
 
   type Query {
-    menu(identifier: ID!): Menu
+    menu(id: ID!): Menu
     menus: [Menu]
   }
 `;

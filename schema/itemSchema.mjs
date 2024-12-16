@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 export const itemTypeDefs = gql`
   type ModifierGroup {
-    identifier: ID!
+    id: ID!
     label: String
     selection_required_min: Int
     selection_required_max: Int
@@ -20,7 +20,7 @@ export const itemTypeDefs = gql`
 
   type Item {
     type: String!
-    identifier: ID!
+    id: ID!
     label: String
     description: String
     price: Float
@@ -30,8 +30,8 @@ export const itemTypeDefs = gql`
   }
 
   type Query {
-    item(identifier: ID!): Item
+    item(id: ID!): Item
     items: [Item]
-    modifierGroups(identifier: ID): [ModifierGroup]
+    modifierGroups(id: ID): [ModifierGroup]
   }
 `;
