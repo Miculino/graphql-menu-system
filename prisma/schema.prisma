@@ -28,7 +28,7 @@ model SectionItem {
   sectionId Int
   itemId    Int
 
-  section Section @relation(fields: [sectionId], references: [id])
+  section Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
   item    Item    @relation(fields: [itemId], references: [id], onDelete: Cascade)
 }
 
@@ -37,8 +37,8 @@ model MenuSection {
   menuId    Int
   sectionId Int
 
-  menu    Menu    @relation(fields: [menuId], references: [id])
-  section Section @relation(fields: [sectionId], references: [id])
+  menu    Menu    @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  section Section @relation(fields: [sectionId], references: [id], onDelete: Cascade)
 }
 
 model Item {
@@ -58,7 +58,7 @@ model ModifierGroup {
   selection_required_min Int
   selection_required_max Int
   itemId                 Int?
-  item                   Item?      @relation(fields: [itemId], references: [id])
+  item                   Item?      @relation(fields: [itemId], references: [id], onDelete: Cascade)
   modifiers              Modifier[]
 }
 

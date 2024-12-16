@@ -13,4 +13,8 @@ export const sectionTypeDefs = gql`
     section(id: ID!): Section!
     items: [Item]
   }
+
+  type Mutation {
+    deleteSection(id: ID!): Section
+  }
 `;

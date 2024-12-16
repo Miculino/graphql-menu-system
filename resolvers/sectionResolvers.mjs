@@ -36,4 +36,13 @@ export const sectionResolvers = {
       return sectionItems.map((sectionItem) => sectionItem.section);
     },
   },
+  Mutation: {
+    deleteSection: async (_, { id }) => {
+      const deletedSection = await prisma.section.delete({
+        where: { id: parseInt(id) },
+      });
+
+      return deletedSection;
+    },
+  },
 };
