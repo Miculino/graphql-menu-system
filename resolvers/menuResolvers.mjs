@@ -1,25 +1,19 @@
-// Mock data for demonstration
-const menus = [
-  {
-    id: "1",
-    identifier: "breakfast-menu",
-    label: "Breakfast Menu",
-    state: "active",
-    start_date: "2024-01-01",
-    end_date: "2024-12-31",
-  },
-  {
-    id: "2",
-    identifier: "dinner-menu",
-    label: "Dinner Menu",
-    state: "inactive",
-    start_date: "2023-01-01",
-    end_date: "2023-12-31",
-  },
-];
+import { mockSections, mockMenuSections, mockMenus } from "../mockData.mjs";
 
 export const menuResolvers = {
   Query: {
-    menus: () => menus,
+    menus: () => mockMenus,
+    menu: (_, { id }) => {
+      return mockMenus.find((ms) => ms.id === id);
+    },
+    sections: () => mockSections,
+  },
+  Menu: {
+    sections: (menu) => {
+      const sectionIds = mockMenuSections
+        .filter((ms) => ms.menuId === menu.id)
+        .map((ms) => ms.sectionId);
+      return mockSections.filter((section) => sectionIds.includes(section.id));
+    },
   },
 };

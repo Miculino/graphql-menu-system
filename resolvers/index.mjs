@@ -1,3 +1,6 @@
-import { menuResolvers } from "./menuResolvers.mjs";
+// We merge the modularized resolvers files to have one source of truth
 
-export const resolvers = [menuResolvers];
+import { menuResolvers } from "./menuResolvers.mjs";
+import { sectionResolvers } from "./sectionResolvers.mjs";
+
+export const resolvers = [menuResolvers, sectionResolvers];

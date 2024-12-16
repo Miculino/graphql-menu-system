@@ -8,10 +8,11 @@ export const menuTypeDefs = gql`
     state: String
     start_date: String
     end_date: String
+    sections: [Section]
   }
 
   type Query {
-    menu(identifier: String!): Menu
+    menu(id: ID!): Menu
     menus: [Menu]
   }
 `;
