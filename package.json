@@ -4,9 +4,24 @@
   "description": "A GraphQL API for managing menu systems, including menus, sections, items, and custom modifiers. Created as part of a technical challenge.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "seed": "node seeds/seed.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miculino/graphql-menu-system.git"
+  },
+  "keywords": [
+    "grpahql",
+    "menu-system",
+    "api",
+    "nodejs"
+  ],
+  "author": "Miculino",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
 }
