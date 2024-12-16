@@ -30,5 +30,7 @@ export const menuTypeDefs = gql`
       start_date: String
       end_date: String
     ): Menu
+
+    deleteMenu(id: ID!): Menu
   }
 `;

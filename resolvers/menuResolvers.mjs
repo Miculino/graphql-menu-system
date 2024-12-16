@@ -39,5 +39,10 @@ export const menuResolvers = {
         },
       });
     },
+    deleteMenu: async (_, { id }) => {
+      return await prisma.menu.delete({
+        where: { id: parseInt(id) },
+      });
+    },
   },
 };
