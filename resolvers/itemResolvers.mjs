@@ -60,5 +60,28 @@ export const itemResolvers = {
         },
       });
     },
+
+    createModifier: async (
+      _,
+      {
+        name,
+        default_quantity,
+        price_override,
+        display_order,
+        itemId,
+        modifierGroupId,
+      }
+    ) => {
+      return await prisma.modifier.create({
+        data: {
+          name,
+          default_quantity,
+          price_override,
+          display_order,
+          itemId: parseInt(itemId),
+          modifierGroupId: parseInt(modifierGroupId),
+        },
+      });
+    },
   },
 };

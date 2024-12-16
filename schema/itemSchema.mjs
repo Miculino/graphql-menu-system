@@ -49,5 +49,14 @@ export const itemTypeDefs = gql`
       selection_required_min: Int
       selection_required_max: Int
     ): ModifierGroup
+
+    createModifier(
+      name: String!
+      default_quantity: Int!
+      price_override: Float
+      display_order: Int
+      itemId: ID!
+      modifierGroupId: ID!
+    ): Modifier
   }
 `;
