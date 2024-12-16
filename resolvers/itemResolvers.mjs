@@ -118,5 +118,11 @@ export const itemResolvers = {
         where: { id: parseInt(id) },
       });
     },
+
+    deleteItem: async (_, { id }) => {
+      return await prisma.item.delete({
+        where: { id: parseInt(id) },
+      });
+    },
   },
 };

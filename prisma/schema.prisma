@@ -29,7 +29,7 @@ model SectionItem {
   itemId    Int
 
   section Section @relation(fields: [sectionId], references: [id])
-  item    Item    @relation(fields: [itemId], references: [id])
+  item    Item    @relation(fields: [itemId], references: [id], onDelete: Cascade)
 }
 
 model MenuSection {
@@ -57,9 +57,9 @@ model ModifierGroup {
   label                  String
   selection_required_min Int
   selection_required_max Int
-  modifiers              Modifier[]
   itemId                 Int?
   item                   Item?      @relation(fields: [itemId], references: [id])
+  modifiers              Modifier[]
 }
 
 model Modifier {
