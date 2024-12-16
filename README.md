@@ -22,6 +22,7 @@ Before setting up the project, ensure you have the following tools installed:
 - [Node.js](https://nodejs.org/) (LTS version)
 - [Prisma](https://www.prisma.io/)
 - [GraphQL](https://graphql.org/)
+- [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
 
 ### Installation
 
