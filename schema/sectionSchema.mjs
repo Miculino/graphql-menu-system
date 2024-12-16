@@ -15,6 +15,10 @@ export const sectionTypeDefs = gql`
   }
 
   type Mutation {
+    createSection(label: String!): Section
+
+    updateSection(id: ID!, label: String): Section
+
     deleteSection(id: ID!): Section
   }
 `;

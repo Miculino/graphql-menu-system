@@ -37,6 +37,23 @@ export const sectionResolvers = {
     },
   },
   Mutation: {
+    createSection: async (_, { label }) => {
+      return await prisma.section.create({
+        data: {
+          label,
+        },
+      });
+    },
+
+    updateSection: async (_, { id, label }) => {
+      return await prisma.section.update({
+        where: { id: parseInt(id) },
+        data: {
+          label,
+        },
+      });
+    },
+
     deleteSection: async (_, { id }) => {
       const deletedSection = await prisma.section.delete({
         where: { id: parseInt(id) },
