@@ -15,12 +15,19 @@ export const menuTypeDefs = gql`
     menus: [Menu]
   }
 
+  type MenuSection {
+    id: ID!
+    menu: Menu!
+    section: Section!
+  }
+
   type Mutation {
     createMenu(
       label: String!
       state: String
       start_date: String!
       end_date: String!
+      sections: [ID!]
     ): Menu
 
     updateMenu(

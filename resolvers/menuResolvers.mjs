@@ -18,15 +18,32 @@ export const menuResolvers = {
     },
   },
   Mutation: {
-    createMenu: async (_, { label, state, start_date, end_date }) => {
-      return await prisma.menu.create({
+    createMenu: async (_, { label, state, start_date, end_date, sections }) => {
+      const existingSections = await prisma.section.findMany({
+        where: {
+          id: {
+            in: sections.map((sectionId) => parseInt(sectionId)),
+          },
+        },
+      });
+
+      if (existingSections.length !== sections.length) {
+        throw new Error("One or more section IDs are invalid.");
+      }
+
+      const menu = await prisma.menu.create({
         data: {
           label,
           state,
           start_date: new Date(start_date),
           end_date: new Date(end_date),
+          sections: {
+            connect: existingSections.map((section) => ({ id: section.id })),
+          },
         },
       });
+
+      return menu;
     },
     updateMenu: async (_, { id, label, state, start_date, end_date }) => {
       return await prisma.menu.update({
