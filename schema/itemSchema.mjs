@@ -42,5 +42,12 @@ export const itemTypeDefs = gql`
       sectionId: ID!
       type: String!
     ): Item
+
+    createModifierGroup(
+      itemId: ID!
+      label: String!
+      selection_required_min: Int
+      selection_required_max: Int
+    ): ModifierGroup
   }
 `;

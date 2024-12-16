@@ -42,5 +42,23 @@ export const itemResolvers = {
         },
       });
     },
+
+    createModifierGroup: async (
+      _,
+      { itemId, label, selection_required_min, selection_required_max }
+    ) => {
+      return await prisma.modifierGroup.create({
+        data: {
+          label,
+          selection_required_min,
+          selection_required_max,
+          item: {
+            connect: {
+              id: parseInt(itemId),
+            },
+          },
+        },
+      });
+    },
   },
 };
