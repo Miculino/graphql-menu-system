@@ -36,6 +36,7 @@ export const menuTypeDefs = gql`
       state: String
       start_date: String
       end_date: String
+      sections: [ID!]
     ): Menu
 
     deleteMenu(id: ID!): Menu
