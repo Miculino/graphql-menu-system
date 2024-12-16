@@ -29,3 +29,20 @@ export const mockMenuSections = [
   { menuId: "1", sectionId: "2" },
   { menuId: "2", sectionId: "2" },
 ];
+
+export const mockItems = [
+  {
+    type: "Product",
+    identifier: "100",
+    label: "Pizza Diavoli",
+    description: "Authentic spicy Italian pizza",
+    price: 20.99,
+  },
+  {
+    type: "Product",
+    identifier: "200",
+    label: "Carbonara",
+    description: "Authentic Italian Carbonara",
+    price: 10.99,
+  },
+];
