@@ -12,7 +12,6 @@ This project is a GraphQL API designed for managing restaurant-style menu system
   - [Mutation Examples](#mutation-examples)
 - [Problem-Solving and Design Breakdown](#problem-solving-and-design-breakdown)
 - [Testing](#testing)
-- [License](#license)
 
 ## Project Setup
 
@@ -145,6 +144,8 @@ The server runs at `http://localhost:4000`.
 
 ### Create a Menu
 
+- **`createMenu(label, state, start_date, end_date, sections)`**: Create a new Menu with a relationship to Sections
+
 ```graphql
 mutation {
   createMenu(
@@ -165,6 +166,8 @@ mutation {
 ```
 
 ### Update a Menu
+
+- **`updateMenu(id, label, state, start_date, end_date, sections)`**: Update an existing Menu
 
 ```graphql
 mutation {
@@ -188,6 +191,8 @@ mutation {
 
 ### Delete a Menu
 
+- **`deleteMenu(id)`**: Delete an entire Menu
+
 ```graphql
 mutation {
   deleteMenu(id: "1") {
@@ -199,6 +204,8 @@ mutation {
 
 ### Create a Section
 
+- **`createSection(label)`**: Create a new Section
+
 ```graphql
 mutation {
   createSection(label: "Desserts") {
@@ -209,6 +216,8 @@ mutation {
 ```
 
 ### Create an Item
+
+- **`createItem(label, price, type, sections)`**: Create a new Item
 
 ```graphql
 mutation {
@@ -305,6 +314,43 @@ In the real world, menus are dynamic and may require frequent updates. Therefore
 - **Section Deletions**: Deleting a section required removing the connection between the section and its menu and updating the sections in the menu to maintain consistency.
 
 I also used the **Apollo Explorer** tool to simulate different real-world scenarios where data might be changed frequently, and I ensured that the system could handle things like cascading deletes or updates gracefully.
+
+## Testing
+
+### Testing Strategy
+
+The goal of the testing strategy was to ensure the robustness of the GraphQL API by verifying that queries and mutations interact correctly with the database, return expected results, and handle edge cases gracefully. The following testing steps were followed:
+
+1. **Integration Testing**:
+
+   - Tested GraphQL queries and mutations with Apollo Explorer (or GraphQL Playground) to ensure that the entire GraphQL API, including Apollo Server, schema, and resolvers, behaves as expected.
+   - All CRUD operations (create, read, update, delete) for entities such as **Menu**, **Section**, **Item**, and **Modifier** were thoroughly tested to ensure correct functionality.
+   - Validated that relationships (e.g., menus to sections, items to modifiers) are properly handled in queries and mutations.
+
+2. **Error Handling**:
+
+   - Tested edge cases like invalid IDs, missing required fields, and attempting to delete entities with existing dependencies (e.g., trying to delete a section that is linked to a menu).
+   - Ensured proper error messages were returned when incorrect or incomplete data was submitted.
+
+3. **Real-World Scenarios**:
+
+   - Simulated real-world usage of the GraphQL API by testing common queries, like retrieving all menus with their sections and items, and creating new menus with multiple sections.
+   - Ensured the API could handle multiple concurrent requests and scale properly as the amount of data grew.
+
+4. **Database Seeding**:
+
+   - Seeded the database with mock data (menus, sections, items, etc.) to ensure that the API works with realistic data, reflecting the kind of scenarios that would happen in a live production environment.
+   - Used Prisma's seeding functionality to automate the population of the database with test data.
+
+5. **Manual Testing with Apollo Explorer**:
+   - Apollo Explorer (or GraphQL Playground) was used to manually test queries and mutations, making sure that the endpoints were functional and returned the expected results.
+   - Various test cases were executed in Apollo Explorer to simulate real-world client requests, ensuring that all possible scenarios were handled appropriately.
+
+### Testing Tools
+
+- **Apollo Server**: Used Apollo's testing capabilities to validate the behavior of the GraphQL API.
+- **Prisma**: Ensured that the Prisma ORM was working as expected for querying and manipulating the database.
+- **Apollo Explorer / GraphQL Playground**: Utilized these tools to test the GraphQL queries and mutations manually, mimicking how a client would interact with the API.
 
 ### Conclusion
 
