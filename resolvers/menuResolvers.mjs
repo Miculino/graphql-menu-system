@@ -1,19 +1,21 @@
-import { mockSections, mockMenuSections, mockMenus } from "../mockData.mjs";
+import prisma from "../prismaClient.mjs";
 
 export const menuResolvers = {
   Query: {
-    menus: () => mockMenus,
-    menu: (_, { id }) => {
-      return mockMenus.find((ms) => ms.id === id);
+    menus: async () => await prisma.menu.findMany(),
+    menu: async (_, { id }) => {
+      return await prisma.menu.findUnique({ where: { id: parseInt(id) } });
     },
-    sections: () => mockSections,
+    sections: async () => await prisma.section.findMany(),
   },
   Menu: {
-    sections: (menu) => {
-      const sectionIds = mockMenuSections
-        .filter((ms) => ms.menuId === menu.id)
-        .map((ms) => ms.sectionId);
-      return mockSections.filter((section) => sectionIds.includes(section.id));
+    sections: async (menu) => {
+      const menuSections = await prisma.menuSection.findMany({
+        where: { menuId: menu.id },
+        include: { section: true },
+      });
+
+      return menuSections.map((menuSection) => menuSection.section);
     },
   },
 };
