@@ -1,39 +1,39 @@
-import {
-  mockMenuSections,
-  mockSections,
-  mockMenus,
-  mockItems,
-  mockSectionItems,
-} from "../mockData.mjs";
+import prisma from "../prismaClient.mjs";
 
 export const sectionResolvers = {
   Query: {
-    sections: () => mockSections,
-    items: () => mockItems,
+    sections: async () => await prisma.section.findMany(),
+    section: async (_, { id }) => {
+      return await prisma.section.findUnique({ where: { id: parseInt(id) } });
+    },
+    items: async () => await prisma.item.findMany(),
   },
   Section: {
-    menus: (section) => {
-      const menuIds = mockMenuSections
-        .filter((ms) => ms.sectionId === section.id)
-        .map((ms) => ms.menuId);
+    menus: async (section) => {
+      const menuSections = await prisma.menuSection.findMany({
+        where: { sectionId: section.id },
+        include: { menu: true },
+      });
 
-      return mockMenus.filter((menu) => menuIds.includes(menu.id));
+      return menuSections.map((menuSection) => menuSection.menu);
     },
-    items: (section) => {
-      const itemIds = mockSectionItems
-        .filter((si) => si.sectionId === section.id)
-        .map((si) => si.itemId);
-
-      return mockItems.filter((item) => itemIds.includes(item.id));
+    items: async (section) => {
+      const sectionItems = await prisma.sectionItem.findMany({
+        where: { sectionId: section.id },
+        include: { item: true },
+      });
+      return sectionItems.map((sectionItem) => sectionItem.item);
     },
   },
   Item: {
-    sections: (item) => {
-      const sectionIds = mockSectionItems
-        .filter((si) => si.itemId === item.id)
-        .map((si) => si.sectionId);
+    sections: async (item) => {
+      console.log(item.id, "item id");
+      const sectionItems = await prisma.sectionItem.findMany({
+        where: { itemId: item.id },
+        include: { section: true },
+      });
 
-      return mockSections.filter((section) => sectionIds.includes(section.id));
+      return sectionItems.map((sectionItem) => sectionItem.section);
     },
   },
 };

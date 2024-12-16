@@ -10,6 +10,7 @@ export const sectionTypeDefs = gql`
 
   type Query {
     sections: [Section]
+    section(id: ID!): Section!
     items: [Item]
   }
 `;
