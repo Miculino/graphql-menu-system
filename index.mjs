@@ -15,24 +15,17 @@ import cors from "cors";
 // BodyParser to parse JSON request bodies
 import bodyParser from "body-parser";
 
+// Schema Types
+import { typeDefs } from "./schema/index.mjs";
+
+// Resolvers
+import { resolvers } from "./resolvers/index.mjs";
+
 const app = express();
 
 const httpServer = http.createServer(app);
 
 const PORT = process.env.PORT || 4000;
-
-// Basic GraphQL Schema for Testing Purposes
-const typeDefs = `#graphql
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => "world", // Simple resolver for testing
-  },
-};
 
 // Apollo comes with plugins to handle its HTTP lifecycle
 const server = new ApolloServer({
