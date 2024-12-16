@@ -34,4 +34,13 @@ export const itemTypeDefs = gql`
     items: [Item]
     modifierGroups(id: ID): [ModifierGroup]
   }
+
+  type Mutation {
+    createItem(
+      label: String!
+      price: Float!
+      sectionId: ID!
+      type: String!
+    ): Item
+  }
 `;

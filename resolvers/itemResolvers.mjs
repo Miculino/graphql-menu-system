@@ -27,4 +27,20 @@ export const itemResolvers = {
       });
     },
   },
+  Mutation: {
+    createItem: async (_, { label, price, sectionId, type }) => {
+      return await prisma.item.create({
+        data: {
+          label,
+          price,
+          type,
+          sections: {
+            create: {
+              sectionId: parseInt(sectionId),
+            },
+          },
+        },
+      });
+    },
+  },
 };
