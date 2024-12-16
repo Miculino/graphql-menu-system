@@ -119,6 +119,14 @@ export const itemResolvers = {
       });
     },
 
+    deleteModifierGroup: async (_, { id }) => {
+      const deletedModifierGroup = await prisma.modifierGroup.delete({
+        where: { id: parseInt(id) },
+      });
+
+      return deletedModifierGroup;
+    },
+
     deleteItem: async (_, { id }) => {
       return await prisma.item.delete({
         where: { id: parseInt(id) },

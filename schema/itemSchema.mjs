@@ -71,6 +71,8 @@ export const itemTypeDefs = gql`
 
     deleteModifier(id: ID!): Modifier
 
+    deleteModifierGroup(id: ID!): ModifierGroup
+
     deleteItem(id: ID!): Item
   }
 `;
