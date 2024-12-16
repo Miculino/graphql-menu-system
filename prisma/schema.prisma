@@ -9,7 +9,6 @@ datasource db {
 
 model Menu {
   id         Int           @id @default(autoincrement())
-  identifier String        @unique
   label      String
   start_date DateTime
   end_date   DateTime
@@ -17,11 +16,10 @@ model Menu {
 }
 
 model Section {
-  id         Int           @id @default(autoincrement())
-  identifier String        @unique
-  label      String
-  items      SectionItem[]
-  menus      MenuSection[]
+  id    Int           @id @default(autoincrement())
+  label String
+  items SectionItem[]
+  menus MenuSection[]
 }
 
 model SectionItem {
@@ -44,7 +42,6 @@ model MenuSection {
 
 model Item {
   id          Int           @id @default(autoincrement())
-  identifier  String        @unique
   label       String
   description String?
   price       Float
@@ -55,7 +52,6 @@ model Item {
 
 model ModifierGroup {
   id                     Int        @id @default(autoincrement())
-  identifier             String     @unique
   label                  String
   selection_required_min Int
   selection_required_max Int
