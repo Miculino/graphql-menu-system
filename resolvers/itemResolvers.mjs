@@ -1,25 +1,30 @@
-import { mockItems, mockModifierGroups, mockModifiers } from "../mockData.mjs";
+import prisma from "../prismaClient.mjs";
 
 export const itemResolvers = {
   Query: {
-    item: (_, { id }) => mockItems.find((mi) => mi.id === id),
-    items: () => mockItems,
-    modifierGroups: (_, { id }) =>
-      id
-        ? mockModifierGroups.filter((group) => group.id === id)
-        : mockModifierGroups,
+    items: async () => await prisma.item.findMany(),
+    item: async (_, { id }) => {
+      return await prisma.item.findUnique({ where: { id: parseInt(id) } });
+    },
   },
   Item: {
-    modifiers: (item) =>
-      mockModifiers.filter((modifier) => modifier.itemId === item.id),
-  },
-  ModifierGroup: {
-    modifiers: (group) =>
-      mockModifiers.filter((modifier) => modifier.modifierGroupId === group.id),
-  },
-  Modifier: {
-    item: (modifier) => mockItems.find((item) => item.id === modifier.itemId),
-    modifier_group: (modifier) =>
-      mockModifierGroups.find((group) => group.id === modifier.modifierGroupId),
+    sections: async (item) => {
+      const sectionItems = await prisma.sectionItem.findMany({
+        where: { itemId: item.id },
+        include: { section: true },
+      });
+      return sectionItems.map((sectionItem) => sectionItem.section);
+    },
+    itemModifierGroups: async (item) => {
+      return await prisma.modifierGroup.findMany({
+        where: { itemId: item.id },
+        include: { modifiers: true },
+      });
+    },
+    modifiers: async (item) => {
+      return await prisma.modifier.findMany({
+        where: { itemId: item.id },
+      });
+    },
   },
 };
