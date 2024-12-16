@@ -58,5 +58,15 @@ export const itemTypeDefs = gql`
       itemId: ID!
       modifierGroupId: ID!
     ): Modifier
+
+    updateModifier(
+      id: ID!
+      name: String
+      default_quantity: Int
+      price_override: Float
+      display_order: Int
+      itemId: ID
+      modifierGroupId: ID
+    ): Modifier
   }
 `;
