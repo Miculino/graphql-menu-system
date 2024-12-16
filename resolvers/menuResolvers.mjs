@@ -14,8 +14,19 @@ export const menuResolvers = {
         where: { menuId: menu.id },
         include: { section: true },
       });
-
       return menuSections.map((menuSection) => menuSection.section);
+    },
+  },
+  Mutation: {
+    createMenu: async (_, { label, state, start_date, end_date }) => {
+      return await prisma.menu.create({
+        data: {
+          label,
+          state,
+          start_date: new Date(start_date),
+          end_date: new Date(end_date),
+        },
+      });
     },
   },
 };

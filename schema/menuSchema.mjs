@@ -14,4 +14,13 @@ export const menuTypeDefs = gql`
     menu(id: ID!): Menu
     menus: [Menu]
   }
+
+  type Mutation {
+    createMenu(
+      label: String!
+      state: String
+      start_date: String!
+      end_date: String!
+    ): Menu
+  }
 `;
