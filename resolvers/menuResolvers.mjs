@@ -28,5 +28,16 @@ export const menuResolvers = {
         },
       });
     },
+    updateMenu: async (_, { id, label, state, start_date, end_date }) => {
+      return await prisma.menu.update({
+        where: { id: parseInt(id) },
+        data: {
+          label,
+          state,
+          start_date: start_date ? new Date(start_date) : undefined,
+          end_date: end_date ? new Date(end_date) : undefined,
+        },
+      });
+    },
   },
 };

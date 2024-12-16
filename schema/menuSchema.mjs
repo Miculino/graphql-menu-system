@@ -22,5 +22,13 @@ export const menuTypeDefs = gql`
       start_date: String!
       end_date: String!
     ): Menu
+
+    updateMenu(
+      id: ID!
+      label: String
+      state: String
+      start_date: String
+      end_date: String
+    ): Menu
   }
 `;
