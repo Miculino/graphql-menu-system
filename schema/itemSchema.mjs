@@ -68,5 +68,7 @@ export const itemTypeDefs = gql`
       itemId: ID
       modifierGroupId: ID
     ): Modifier
+
+    deleteModifier(id: ID!): Modifier
   }
 `;
