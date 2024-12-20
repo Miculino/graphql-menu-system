@@ -27,6 +27,8 @@ export const itemTypeDefs = gql`
     sections: [Section]
     itemModifierGroups: [ModifierGroup]!
     modifiers: [Modifier]!
+    thumbnail_url: String
+    display_order: Int
   }
 
   type Query {
