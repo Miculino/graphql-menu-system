@@ -17,10 +17,12 @@ model Menu {
 }
 
 model Section {
-  id    Int           @id @default(autoincrement())
-  label String
-  items SectionItem[]
-  menus MenuSection[]
+  id            Int           @id @default(autoincrement())
+  label         String
+  items         SectionItem[]
+  menus         MenuSection[]
+  isAvailable   Boolean       @default(true)
+  display_order Int           @default(0)
 }
 
 model SectionItem {
@@ -50,6 +52,9 @@ model Item {
   modifiers     Modifier[]
   sections      SectionItem[]
   ModifierGroup ModifierGroup[]
+  isAvailable   Boolean         @default(true)
+  thumbnail_url String?
+  display_order Int             @default(0)
 }
 
 model ModifierGroup {
