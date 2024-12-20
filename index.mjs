@@ -32,23 +32,17 @@ const PORT = process.env.PORT || 4000;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  csrfPrevention: false, // Disable CSRF prevention for development
   plugins: [
     ApolloServerPluginLandingPageDisabled(),
     ApolloServerPluginDrainHttpServer({ httpServer }),
-  ], // Gracefully shuts down the server on app termination
+  ],
 });
 
 await server.start();
 
 // Add middleware for CORS, JSON parsing, and GraphQL handling
-app.use(
-  "/graphql",
-  cors({
-    origin: [process.env.REACT_APP_FRONTEND_URL],
-  }),
-  bodyParser.json(),
-  expressMiddleware(server)
-);
+app.use("/graphql", cors(), bodyParser.json(), expressMiddleware(server));
 
 // Start the server
 await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
