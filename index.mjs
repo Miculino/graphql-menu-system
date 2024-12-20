@@ -36,7 +36,6 @@ const server = new ApolloServer({
     ApolloServerPluginLandingPageDisabled(),
     ApolloServerPluginDrainHttpServer({ httpServer }),
   ], // Gracefully shuts down the server on app termination
-  introspection: true,
 });
 
 await server.start();
