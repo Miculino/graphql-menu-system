@@ -5,6 +5,7 @@ import express from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
 
 // HTTP
 import http from "http";
@@ -31,14 +32,24 @@ const PORT = process.env.PORT || 4000;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })], // Gracefully shuts down the server on app termination
+  plugins: [
+    ApolloServerPluginLandingPageDisabled(),
+    ApolloServerPluginDrainHttpServer({ httpServer }),
+  ], // Gracefully shuts down the server on app termination
+  introspection: true,
 });
 
 await server.start();
 
 // Add middleware for CORS, JSON parsing, and GraphQL handling
-app.use(cors(), bodyParser.json(), expressMiddleware(server));
+app.use(
+  "/graphql",
+  cors({
+    origin: [process.env.REACT_APP_FRONTEND_URL],
+  }),
+  bodyParser.json(),
+  expressMiddleware(server)
+);
 
 // Start the server
 await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
-console.log(`Server ready at http://localhost:${PORT}`);
