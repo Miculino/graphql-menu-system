@@ -41,7 +41,14 @@ const server = new ApolloServer({
 await server.start();
 
 // Add middleware for CORS, JSON parsing, and GraphQL handling
-app.use("/graphql", cors(), bodyParser.json(), expressMiddleware(server));
+app.use(
+  "/graphql",
+  cors({
+    origin: [process.env.REACT_APP_FRONTEND_URL],
+  }),
+  bodyParser.json(),
+  expressMiddleware(server)
+);
 
 // Start the server
 await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
