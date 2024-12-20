@@ -6,6 +6,7 @@ export const sectionTypeDefs = gql`
     label: String
     menus: [Menu]
     items: [Item]
+    display_order: Int
   }
 
   type Query {
