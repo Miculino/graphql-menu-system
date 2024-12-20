@@ -32,7 +32,6 @@ const PORT = process.env.PORT || 4000;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  csrfPrevention: false, // Disable CSRF prevention for development
   plugins: [
     ApolloServerPluginLandingPageDisabled(),
     ApolloServerPluginDrainHttpServer({ httpServer }),
