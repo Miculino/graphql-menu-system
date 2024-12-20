@@ -7,6 +7,7 @@ export const sectionTypeDefs = gql`
     menus: [Menu]
     items: [Item]
     display_order: Int
+    isAvailable: Boolean
   }
 
   type Query {

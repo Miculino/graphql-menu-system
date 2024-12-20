@@ -29,6 +29,7 @@ export const itemTypeDefs = gql`
     modifiers: [Modifier]!
     thumbnail_url: String
     display_order: Int
+    isAvailable: Boolean
   }
 
   type Query {
