@@ -53,3 +53,4 @@ app.use(
 
 // Start the server
 await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
+console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);

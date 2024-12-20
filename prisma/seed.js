@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 async function main() {
   const mainMenu = await prisma.menu.create({
     data: {
-      identifier: "main-menu",
+      id: 1,
       label: "Main Menu",
       start_date: new Date("2024-01-01"),
       end_date: new Date("2024-12-31"),
@@ -13,14 +13,14 @@ async function main() {
 
   const nonConfigurableSection = await prisma.section.create({
     data: {
-      identifier: "non-configurable",
+      id: 2,
       label: "Non-Configurable Items",
     },
   });
 
   const configurableSection = await prisma.section.create({
     data: {
-      identifier: "configurable",
+      id: 3,
       label: "Configurable Items",
     },
   });
@@ -34,7 +34,7 @@ async function main() {
 
   const soup = await prisma.item.create({
     data: {
-      identifier: "soup",
+      id: 4,
       label: "Tomato Soup",
       description: "Rich and creamy tomato soup",
       price: 5.99,
@@ -44,7 +44,7 @@ async function main() {
 
   const salad = await prisma.item.create({
     data: {
-      identifier: "salad",
+      id: 5,
       label: "Caesar Salad",
       description: "Classic Caesar salad with croutons",
       price: 7.99,
@@ -61,7 +61,7 @@ async function main() {
 
   const burger = await prisma.item.create({
     data: {
-      identifier: "burger",
+      id: 6,
       label: "Build-Your-Own Burger",
       description: "Customizable burger with various toppings",
       price: 10.99,
@@ -71,7 +71,7 @@ async function main() {
 
   const pizza = await prisma.item.create({
     data: {
-      identifier: "pizza",
+      id: 7,
       label: "Build-Your-Own Pizza",
       description: "Customizable pizza with toppings of your choice",
       price: 15.99,
@@ -88,7 +88,7 @@ async function main() {
 
   const burgerToppings = await prisma.modifierGroup.create({
     data: {
-      identifier: "burger-toppings",
+      id: 8,
       label: "Burger Toppings",
       selection_required_min: 1,
       selection_required_max: 3,
@@ -97,7 +97,7 @@ async function main() {
 
   const pizzaSizes = await prisma.modifierGroup.create({
     data: {
-      identifier: "pizza-sizes",
+      id: 9,
       label: "Pizza Sizes",
       selection_required_min: 1,
       selection_required_max: 1,
